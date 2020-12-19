@@ -76,11 +76,8 @@ def check_flood(update, context) -> str:
             )
             execstrings = "Muted for {}".format(getvalue)
             tag = "TMUTE"
-        send_message(
-            update.effective_message,
-            "Great, I like to leave flooding to staff members but you, "
-            "you were just a disappointment. {}!".format(execstrings),
-        )
+        send_message(update.effective_message,
+                     "Wanna Spam?! Sorry it's not your house Man!\n{}!".format(execstrings))
 
         return (
             "<b>{}:</b>"
