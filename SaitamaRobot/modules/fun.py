@@ -233,6 +233,7 @@ __help__ = """
  • `/pat`*:* pats a user, or get patted
  • `/fun`*:* funny text,stricker and gif send
  • `/aq`*:* get random anime quote
+ • `/qu `*:* make quote of massage
  • `/lyrics <song name> `*:* text to voice
  • `/plet <text> `*:* text get funny emojify
  • `/tts <text> `*:* text to voice
