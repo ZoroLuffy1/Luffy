@@ -1,15 +1,17 @@
 import datetime
 import html
 import textwrap
+import json
 
 import bs4
 import jikanpy
 import requests
 from telegram.utils.helpers import mention_html
+from telegram.error import BadRequest
 from SaitamaRobot import DEV_USERS, OWNER_ID, DRAGONS, REDIS, dispatcher
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
 from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
-                      Update)
+                      Update ,replymarkup)
 from telegram.ext import CallbackContext, CallbackQueryHandler, run_async
 
 info_btn = "More Information"
@@ -454,6 +456,46 @@ def upcoming(update, context):
         upcoming_message += f"{entry_num + 1}. {upcoming_list[entry_num]}\n"
 
     update.effective_message.reply_text(upcoming_message)
+    
+def anime_quote():
+    url = "https://animechanapi.xyz/api/quotes/random"
+    response = requests.get(url)
+    # since text attribute returns dictionary like string
+    dic = json.loads(response.text)
+    quote = dic["data"][0]["quote"]
+    character = dic["data"][0]["character"]
+    anime = dic["data"][0]["anime"]
+    return quote, character, anime
+
+
+@run_async
+def quotes(update: Update, context: CallbackContext):
+    message = update.effective_message
+    quote, character, anime = anime_quote()
+    msg = f"<i>❝{quote}❞</i>\n\n<b>{character} from {anime}</b>"
+    keyboard = InlineKeyboardMarkup(
+        [[InlineKeyboardButton(text="Change🔁", callback_data="change_quote")]]
+    )
+    message.reply_text(
+        msg,
+        reply_markup=keyboard,
+        parse_mode=ParseMode.HTML,
+    )
+
+
+@run_async
+def change_quote(update: Update, context: CallbackContext):
+    query = update.callback_query
+    chat = update.effective_chat
+    message = update.effective_message
+    quote, character, anime = anime_quote()
+    msg = f"<i>❝{quote}❞</i>\n\n<b>{character} from {anime}</b>"
+    keyboard = InlineKeyboardMarkup(
+        [[InlineKeyboardButton(text="Change🔁", callback_data="quote_change")]]
+    )
+    message.edit_text(msg, reply_markup=keyboard, parse_mode=ParseMode.HTML)
+
+
 
 @run_async
 def watchlist(update, context):
@@ -670,6 +712,7 @@ def button(update, context):
 
 
 
+
 __help__ = """
 Get information about anime, manga or characters from [AniList](anilist.co).
 *Available commands:*
@@ -679,6 +722,7 @@ Get information about anime, manga or characters from [AniList](anilist.co).
  - /user <user>: returns information about a MyAnimeList user.
  - /upcoming: returns a list of new anime in the upcoming seasons.
  - /airing <anime>: returns anime airing info.
+ - /aq: get random anime quote
  - /whatanime: to search source of anime reply to photo
  - /watchlist: to get your saved watchlist.
  - /mangalist: to get your saved manga read list.
@@ -694,6 +738,9 @@ CHARACTER_HANDLER = DisableAbleCommandHandler("character", character)
 MANGA_HANDLER = DisableAbleCommandHandler("manga", manga)
 USER_HANDLER = DisableAbleCommandHandler("user", user)
 UPCOMING_HANDLER = DisableAbleCommandHandler("upcoming", upcoming)
+QUOTE = DisableAbleCommandHandler("aq", quotes)
+CHANGE_QUOTE = CallbackQueryHandler(change_quote, pattern=r"change_.*")
+QUOTE_CHANGE = CallbackQueryHandler(change_quote, pattern=r"quote_.*")
 WATCHLIST_HANDLER = DisableAbleCommandHandler("watchlist", watchlist)
 MANGALIST_HANDLER = DisableAbleCommandHandler("mangalist", readmanga)
 FVRT_CHAR_HANDLER = DisableAbleCommandHandler(["characterlist","fcl"], fvrtchar)
@@ -711,6 +758,9 @@ dispatcher.add_handler(MANGA_HANDLER)
 dispatcher.add_handler(AIRING_HANDLER)
 dispatcher.add_handler(USER_HANDLER)
 dispatcher.add_handler(UPCOMING_HANDLER)
+dispatcher.add_handler(QUOTE)
+dispatcher.add_handler(CHANGE_QUOTE)
+dispatcher.add_handler(QUOTE_CHANGE)
 dispatcher.add_handler(WATCHLIST_HANDLER)
 dispatcher.add_handler(MANGALIST_HANDLER)
 dispatcher.add_handler(FVRT_CHAR_HANDLER)
