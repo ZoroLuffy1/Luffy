@@ -22,6 +22,7 @@ CurrencyConverter
 googletrans
 jikanpy
 redis
+coffeehouse
 speedtest-cli
 cachetools
 google_trans_new
