@@ -24,7 +24,6 @@ jikanpy
 redis
 speedtest-cli
 cachetools
-coffeehouse
 google_trans_new
 regex
 bleach
