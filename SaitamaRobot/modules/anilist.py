@@ -768,4 +768,4 @@ dispatcher.add_handler(REMOVE_FVRT_CHAR_HANDLER)
 dispatcher.add_handler(REMOVE_MANGA_CHAR_HANDLER)
 dispatcher.add_handler(REMOVE_WATCHLIST_HANDLER)
 
-__mod_name__ = "Anime"
+__mod_name__ = "AniList"
