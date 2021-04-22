@@ -200,7 +200,7 @@ def start(update: Update, context: CallbackContext):
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            text="🧲Add Ash Ketchum to your group!",
+                            text="☑️Add Ash Ketchum to your group!",
                             url="t.me/{}?startgroup=true".format(
                                 context.bot.username))
                     ],
@@ -219,7 +219,7 @@ def start(update: Update, context: CallbackContext):
                      ],
                      [
                          InlineKeyboardButton(
-                             text="💾 Source Code.",
+                             text="📔 Source Code.",
                              url="https://github.com/Uday0011/Ash")
                      ]]))
     else:
