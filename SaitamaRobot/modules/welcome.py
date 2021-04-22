@@ -204,7 +204,7 @@ def new_member(update: Update, context: CallbackContext):
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
                     f"#USER_JOINED\n"
-                    f"Mele Uday Papa aa gaye🥺🥺🥺"
+                    f"Ohhh! The God just arrived here! \o/"
                 )
                 continue
 
