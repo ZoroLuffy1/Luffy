@@ -177,7 +177,7 @@ def kang(update: Update, context: CallbackContext):
                     )
 
             except OSError as e:
-                
+                msg.reply_text("I can only kang images m8.")
                 print(e)
                 return
 
