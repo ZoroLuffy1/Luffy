@@ -80,7 +80,7 @@ And the following:
 SAITAMA_IMG = "https://telegra.ph/file/2bbe6208b097878d44d26.jpg"
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
-Ash is hosted on heroku and doesn't require any donations as of now but \
+Ash is hosted on one server and doesn't require any donations as of now but \
 You can donate to the original writer of the Base code, Paul
 There are two ways of supporting him; [PayPal](paypal.me/PaulSonOfLars), or [Monzo](monzo.me/paulnionvestergaardlarsen)."""
 
