@@ -722,14 +722,13 @@ Get information about anime, manga or characters from [AniList](anilist.co).
  - /user <user>: returns information about a MyAnimeList user.
  - /upcoming: returns a list of new anime in the upcoming seasons.
  - /airing <anime>: returns anime airing info.
- - /aq: get random anime quote
- - /whatanime: to search source of anime reply to photo
  - /watchlist: to get your saved watchlist.
  - /mangalist: to get your saved manga read list.
  - /characterlist | fcl: to get your favorite characters list.
  - /removewatchlist | rwl <anime>: to remove a anime from your list.
  - /rfcharacter | rfcl <character>: to remove a character from your list.  
  - /rmanga | rml <manga>: to remove a manga from your list.
+ - /aq: get random anime quote
  """
 
 ANIME_HANDLER = DisableAbleCommandHandler("anime", anime)
