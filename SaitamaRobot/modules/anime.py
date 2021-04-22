@@ -458,13 +458,16 @@ def upcoming(update, context):
     update.effective_message.reply_text(upcoming_message)
     
 def anime_quote():
-    url = "https://animechanapi.xyz/api/quotes/random"
-    response = requests.get(url)
+    url = "https://animechan.vercel.app/api/random"
     # since text attribute returns dictionary like string
-    dic = json.loads(response.text)
-    quote = dic["data"][0]["quote"]
-    character = dic["data"][0]["character"]
-    anime = dic["data"][0]["anime"]
+    response = requests.get(url)
+    try:
+        dic = json.loads(response.text)
+    except Exception:
+        pass
+    quote = dic["quote"]
+    character = dic["character"]
+    anime = dic["anime"]
     return quote, character, anime
 
 
@@ -473,9 +476,10 @@ def quotes(update: Update, context: CallbackContext):
     message = update.effective_message
     quote, character, anime = anime_quote()
     msg = f"<i>❝{quote}❞</i>\n\n<b>{character} from {anime}</b>"
-    keyboard = InlineKeyboardMarkup(
-        [[InlineKeyboardButton(text="Change🔁", callback_data="change_quote")]]
-    )
+    keyboard = InlineKeyboardMarkup([[
+        InlineKeyboardButton(
+            text="Change🔁",
+            callback_data="change_quote")]])
     message.reply_text(
         msg,
         reply_markup=keyboard,
@@ -490,10 +494,12 @@ def change_quote(update: Update, context: CallbackContext):
     message = update.effective_message
     quote, character, anime = anime_quote()
     msg = f"<i>❝{quote}❞</i>\n\n<b>{character} from {anime}</b>"
-    keyboard = InlineKeyboardMarkup(
-        [[InlineKeyboardButton(text="Change🔁", callback_data="quote_change")]]
-    )
-    message.edit_text(msg, reply_markup=keyboard, parse_mode=ParseMode.HTML)
+    keyboard = InlineKeyboardMarkup([[
+        InlineKeyboardButton(
+            text="Change🔁",
+            callback_data="quote_change")]])
+    message.edit_text(msg, reply_markup=keyboard,
+                      parse_mode=ParseMode.HTML)
 
 
 
@@ -722,14 +728,13 @@ Get information about anime, manga or characters from [AniList](anilist.co).
  - /user <user>: returns information about a MyAnimeList user.
  - /upcoming: returns a list of new anime in the upcoming seasons.
  - /airing <anime>: returns anime airing info.
- - /aq: get random anime quote
- - /whatanime: to search source of anime reply to photo
  - /watchlist: to get your saved watchlist.
  - /mangalist: to get your saved manga read list.
  - /characterlist | fcl: to get your favorite characters list.
  - /removewatchlist | rwl <anime>: to remove a anime from your list.
  - /rfcharacter | rfcl <character>: to remove a character from your list.  
  - /rmanga | rml <manga>: to remove a manga from your list.
+ - /aq: get random anime quote
  """
 
 ANIME_HANDLER = DisableAbleCommandHandler("anime", anime)
@@ -768,4 +773,4 @@ dispatcher.add_handler(REMOVE_FVRT_CHAR_HANDLER)
 dispatcher.add_handler(REMOVE_MANGA_CHAR_HANDLER)
 dispatcher.add_handler(REMOVE_WATCHLIST_HANDLER)
 
-__mod_name__ = "Anime"
+__mod_name__ = "AniList"
