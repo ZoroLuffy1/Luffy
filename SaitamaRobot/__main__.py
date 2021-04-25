@@ -214,13 +214,13 @@ def start(update: Update, context: CallbackContext):
                             ),
                             InlineKeyboardButton(
                                 text="🔔 Updates",
-                                url="https://t.me/OnePunchUpdates",
+                                url="https://t.me/BotLabUpdates",
                             ),
                         ],
                         [
                             InlineKeyboardButton(
                                 text="📚 Getting Started",
-                                url="https://t.me/OnePunchUpdates/29",
+                                url="https://t.me/BotLabUpdates/3",
                             ),
                             InlineKeyboardButton(
                                 text="📔 Source code",
