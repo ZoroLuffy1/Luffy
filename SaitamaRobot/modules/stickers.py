@@ -71,7 +71,8 @@ def getsticker(update: Update, context: CallbackContext):
         os.remove("sticker.png")
     else:
         update.effective_message.reply_text(
-            "Please reply to a sticker for me to upload its PNG.")
+            "Please reply to a sticker for me to upload its PNG.",
+        )
 
 @run_async
 def kang(update: Update, context: CallbackContext):
@@ -448,10 +449,13 @@ def kang(update: Update, context: CallbackContext):
                        reply_markup=edited_keyboard,
                        parse_mode=ParseMode.MARKDOWN
                        )
-    if os.path.isfile("kangsticker.png"):
-        os.remove("kangsticker.png")
-    elif os.path.isfile("kangsticker.tgs"):
-        os.remove("kangsticker.tgs")
+    try:
+        if os.path.isfile("kangsticker.png"):
+            os.remove("kangsticker.png")
+        elif os.path.isfile("kangsticker.tgs"):
+            os.remove("kangsticker.tgs")
+    except:
+        pass
 
 
 def makepack_internal(
